@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Time Tracker</title>
+    <title>Mani & Abisai Time Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -13,14 +14,14 @@
         }
         
         body {
-            background-color: #f5f7fa;
+            background-color: #f8f9fa;
             color: #333;
             line-height: 1.6;
             padding: 20px;
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -28,8 +29,8 @@
         header {
             text-align: center;
             margin-bottom: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 25px;
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
             color: white;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -41,95 +42,87 @@
         }
         
         .description {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
         }
         
-        .tracker-container {
+        .summary-cards {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin-bottom: 30px;
         }
         
-        .input-section, .summary-section {
+        .card {
             flex: 1;
-            min-width: 300px;
+            min-width: 200px;
             background: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         }
         
-        h2 {
-            margin-bottom: 20px;
-            color: #2c3e50;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #eee;
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #4b6cb7;
         }
         
-        .form-group {
-            margin-bottom: 15px;
+        .card p {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #182848;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            align-items: end;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
         }
         
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 600;
             color: #2c3e50;
         }
         
-        input, select, textarea {
+        input, select {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
         }
         
         button {
-            background: #2575fc;
+            background: #4b6cb7;
             color: white;
             border: none;
             padding: 12px 20px;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
             transition: background 0.3s;
-            width: 100%;
         }
         
         button:hover {
-            background: #1a60c7;
-        }
-        
-        .summary-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .card {
-            flex: 1;
-            min-width: 140px;
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-        
-        .card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #6a11cb;
-        }
-        
-        .card p {
-            font-size: 1.5rem;
-            font-weight: bold;
+            background: #3a5a9f;
         }
         
         .entries-section {
@@ -146,38 +139,43 @@
         }
         
         th, td {
-            padding: 12px 15px;
+            padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #e9ecef;
         }
         
         th {
             background-color: #f8f9fa;
             font-weight: 600;
             color: #2c3e50;
+            position: sticky;
+            top: 0;
         }
         
         tr:hover {
             background-color: #f8f9fa;
         }
         
-        .delete-btn {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
+        .person-mani {
+            border-left: 4px solid #4b6cb7;
         }
         
-        .delete-btn:hover {
-            background: #ff2e43;
+        .person-abisai {
+            border-left: 4px solid #28a745;
+        }
+        
+        .total-row {
+            font-weight: bold;
+            background-color: #f1f8ff;
         }
         
         @media (max-width: 768px) {
-            .tracker-container {
-                flex-direction: column;
+            th, td {
+                padding: 10px;
+            }
+            
+            .mobile-hidden {
+                display: none;
             }
         }
     </style>
@@ -185,205 +183,205 @@
 <body>
     <div class="container">
         <header>
-            <h1>Project Time Tracker</h1>
-            <p class="description">Track your and your friend's hours to ensure fair collaboration</p>
+            <h1>Mani & Abisai Time Tracker</h1>
+            <p class="description">Track time spent on project tasks</p>
         </header>
         
-        <div class="tracker-container">
-            <div class="input-section">
-                <h2>Log Time</h2>
-                <form id="time-form">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <select id="name" required>
-                            <option value="">Select your name</option>
-                            <option value="You">You</option>
-                            <option value="Friend">Friend</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="date">Date</label>
-                        <input type="date" id="date" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="hours">Hours Worked</label>
-                        <input type="number" id="hours" min="0.5" step="0.5" placeholder="2.5" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="task">Task Description</label>
-                        <textarea id="task" rows="3" placeholder="What did you work on?" required></textarea>
-                    </div>
-                    
-                    <button type="submit">Add Time Entry</button>
-                </form>
+        <div class="summary-cards">
+            <div class="card">
+                <h3>Total Tasks</h3>
+                <p id="total-tasks">0</p>
+            </div>
+            <div class="card">
+                <h3>Mani's Hours</h3>
+                <p id="mani-hours">0</p>
+            </div>
+            <div class="card">
+                <h3>Abisai's Hours</h3>
+                <p id="abisai-hours">0</p>
+            </div>
+            <div class="card">
+                <h3>Total Hours</h3>
+                <p id="total-hours">0</p>
+            </div>
+        </div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label for="filter-person">Filter by Person</label>
+                <select id="filter-person">
+                    <option value="all">All People</option>
+                    <option value="Mani">Mani</option>
+                    <option value="Abisai">Abisai</option>
+                </select>
             </div>
             
-            <div class="summary-section">
-                <h2>Time Summary</h2>
-                <div class="summary-cards">
-                    <div class="card">
-                        <h3>Your Hours</h3>
-                        <p id="your-hours">0</p>
-                    </div>
-                    <div class="card">
-                        <h3>Friend's Hours</h3>
-                        <p id="friend-hours">0</p>
-                    </div>
-                    <div class="card">
-                        <h3>Difference</h3>
-                        <p id="difference">0</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3>Fairness Status</h3>
-                    <p id="status">Balanced</p>
-                </div>
+            <div class="filter-group">
+                <label for="filter-date">Filter by Date</label>
+                <input type="date" id="filter-date">
+            </div>
+            
+            <div class="filter-group">
+                <label for="search">Search Tasks</label>
+                <input type="text" id="search" placeholder="Search tasks...">
+            </div>
+            
+            <div class="filter-group">
+                <button id="reset-filters">Reset Filters</button>
             </div>
         </div>
         
         <div class="entries-section">
-            <h2>Time Entries</h2>
-            <table id="entries-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>Hours</th>
-                        <th>Task</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Entries will be added here dynamically -->
-                </tbody>
-            </table>
+            <h2>Time Log</h2>
+            
+            <div style="overflow-x: auto;">
+                <table id="entries-table">
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>Date</th>
+                            <th>Hours</th>
+                            <th>Task</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Entries will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const timeForm = document.getElementById('time-form');
             const entriesTable = document.getElementById('entries-table').getElementsByTagName('tbody')[0];
-            const yourHoursElem = document.getElementById('your-hours');
-            const friendHoursElem = document.getElementById('friend-hours');
-            const differenceElem = document.getElementById('difference');
-            const statusElem = document.getElementById('status');
+            const totalTasksElem = document.getElementById('total-tasks');
+            const maniHoursElem = document.getElementById('mani-hours');
+            const abisaiHoursElem = document.getElementById('abisai-hours');
+            const totalHoursElem = document.getElementById('total-hours');
+            const filterPerson = document.getElementById('filter-person');
+            const filterDate = document.getElementById('filter-date');
+            const searchInput = document.getElementById('search');
+            const resetFiltersBtn = document.getElementById('reset-filters');
             
-            // Set today's date as default
-            document.getElementById('date').valueAsDate = new Date();
+            // Python object array (simulated)
+            const timeEntries = [
+                {name: "Mani", date: "2025-08-21", hours: 2.0, task: "1st Meeting/Connect thru Github"},
+                {name: "Abisai", date: "2025-08-21", hours: 2.0, task: "1st Meeting/Connect thru Github"},
+                {name: "Mani", date: "2025-08-25", hours: 2.0, task: "Created Flashcard+Time-Log"},
+                {name: "Abisai", date: "2025-08-25", hours: 2.0, task: "Set up subpage"}
+            ];
             
-            // Load entries from localStorage if available
-            let timeEntries = JSON.parse(localStorage.getItem('timeEntries')) || [];
-            
-            // Render existing entries and update summary
+            // Render entries and update totals
             renderEntries();
-            updateSummary();
+            updateTotals();
             
-            // Handle form submission
-            timeForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+            // Add event listeners for filters
+            filterPerson.addEventListener('change', renderEntries);
+            filterDate.addEventListener('change', renderEntries);
+            searchInput.addEventListener('input', renderEntries);
+            resetFiltersBtn.addEventListener('click', resetFilters);
+            
+            // Function to properly format date without timezone issues
+            function formatDate(dateString) {
+                // Split the date string into parts
+                const parts = dateString.split('-');
+                if (parts.length !== 3) return dateString;
                 
-                const name = document.getElementById('name').value;
-                const date = document.getElementById('date').value;
-                const hours = parseFloat(document.getElementById('hours').value);
-                const task = document.getElementById('task').value;
+                const year = parseInt(parts[0]);
+                const month = parseInt(parts[1]) - 1; // Months are 0-indexed in JavaScript
+                const day = parseInt(parts[2]);
                 
-                // Add to entries array
-                timeEntries.push({
-                    name,
-                    date,
-                    hours,
-                    task
+                // Create a date object with the correct values
+                const date = new Date(year, month, day);
+                
+                // Format the date to avoid timezone issues
+                return date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
                 });
-                
-                // Save to localStorage
-                localStorage.setItem('timeEntries', JSON.stringify(timeEntries));
-                
-                // Update UI
-                renderEntries();
-                updateSummary();
-                
-                // Reset form
-                timeForm.reset();
-                document.getElementById('date').valueAsDate = new Date();
-            });
+            }
             
-            // Render all time entries
+            // Render all time entries based on filters
             function renderEntries() {
                 entriesTable.innerHTML = '';
                 
-                timeEntries.forEach((entry, index) => {
+                const personFilter = filterPerson.value;
+                const dateFilter = filterDate.value;
+                const searchFilter = searchInput.value.toLowerCase();
+                
+                let filteredEntries = timeEntries.filter(entry => {
+                    if (personFilter !== 'all' && entry.name !== personFilter) return false;
+                    if (dateFilter && entry.date !== dateFilter) return false;
+                    if (searchFilter && !entry.task.toLowerCase().includes(searchFilter)) return false;
+                    return true;
+                });
+                
+                // Render table view
+                filteredEntries.forEach((entry) => {
                     const row = entriesTable.insertRow();
+                    
+                    // Add class based on person
+                    if (entry.name === 'Mani') {
+                        row.classList.add('person-mani');
+                    } else {
+                        row.classList.add('person-abisai');
+                    }
                     
                     const nameCell = row.insertCell(0);
                     const dateCell = row.insertCell(1);
                     const hoursCell = row.insertCell(2);
                     const taskCell = row.insertCell(3);
-                    const actionCell = row.insertCell(4);
                     
                     nameCell.textContent = entry.name;
                     
-                    // Format date for display
-                    const dateObj = new Date(entry.date);
-                    dateCell.textContent = dateObj.toLocaleDateString();
+                    // Use the fixed date formatting function
+                    dateCell.textContent = formatDate(entry.date);
                     
                     hoursCell.textContent = entry.hours;
                     taskCell.textContent = entry.task;
-                    
-                    // Add delete button
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.textContent = 'Delete';
-                    deleteBtn.classList.add('delete-btn');
-                    deleteBtn.onclick = function() {
-                        deleteEntry(index);
-                    };
-                    actionCell.appendChild(deleteBtn);
                 });
+                
+                updateTotals();
             }
             
-            // Update the summary section
-            function updateSummary() {
-                let yourHours = 0;
-                let friendHours = 0;
+            // Update the totals
+            function updateTotals() {
+                const personFilter = filterPerson.value;
+                const dateFilter = filterDate.value;
+                const searchFilter = searchInput.value.toLowerCase();
+                
+                let maniHours = 0;
+                let abisaiHours = 0;
+                let totalTasks = 0;
                 
                 timeEntries.forEach(entry => {
-                    if (entry.name === 'You') {
-                        yourHours += entry.hours;
-                    } else if (entry.name === 'Friend') {
-                        friendHours += entry.hours;
+                    if (personFilter !== 'all' && entry.name !== personFilter) return;
+                    if (dateFilter && entry.date !== dateFilter) return;
+                    if (searchFilter && !entry.task.toLowerCase().includes(searchFilter)) return;
+                    
+                    totalTasks++;
+                    
+                    if (entry.name === 'Mani') {
+                        maniHours += entry.hours;
+                    } else {
+                        abisaiHours += entry.hours;
                     }
                 });
                 
-                yourHoursElem.textContent = yourHours.toFixed(1);
-                friendHoursElem.textContent = friendHours.toFixed(1);
-                
-                const difference = (yourHours - friendHours).toFixed(1);
-                differenceElem.textContent = Math.abs(difference);
-                
-                // Update status
-                if (Math.abs(difference) < 0.5) {
-                    statusElem.textContent = 'Balanced';
-                    statusElem.style.color = '#2ed573';
-                } else if (yourHours > friendHours) {
-                    statusElem.textContent = 'You have more hours';
-                    statusElem.style.color = '#ff9f43';
-                } else {
-                    statusElem.textContent = 'Friend has more hours';
-                    statusElem.style.color = '#ff4757';
-                }
+                maniHoursElem.textContent = maniHours.toFixed(1);
+                abisaiHoursElem.textContent = abisaiHours.toFixed(1);
+                totalHoursElem.textContent = (maniHours + abisaiHours).toFixed(1);
+                totalTasksElem.textContent = totalTasks;
             }
             
-            // Delete an entry
-            function deleteEntry(index) {
-                if (confirm('Are you sure you want to delete this entry?')) {
-                    timeEntries.splice(index, 1);
-                    localStorage.setItem('timeEntries', JSON.stringify(timeEntries));
-                    renderEntries();
-                    updateSummary();
-                }
+            // Reset all filters
+            function resetFilters() {
+                filterPerson.value = 'all';
+                filterDate.value = '';
+                searchInput.value = '';
+                renderEntries();
             }
         });
     </script>
